@@ -6,24 +6,13 @@
 # Demonstrates the Nim programming language by implementing Assignment 5 Exercise C
 
 # Imports
-import strutils # for intToStr, isDigit, and parseInt
-import algorithm # for sort
+from strutils import intToStr, isDigit, parseInt
+from algorithm import sort
 
 # Variables
 var
     inputSequence: seq[int] = @[]
     outputMedian: int
-
-# printArray
-# Takes an openArray of integers. Does not return.
-# Prints the contents of an sequence of arbitrary length with commas between each element.
-proc printSequence(oa: openArray[int]): string =
-    result = ""
-    for i in 0..<oa.len:
-        result.add(intToStr(oa[i]))
-        if i != <oa.len:
-            result.add(", ")
-
 
 # median
 # Takes an openArray of intgers.
@@ -32,6 +21,16 @@ proc median(oa: var openArray[int]): int =
     sort(oa, system.cmp[int])
     var index = int(oa.len/2)
     result = oa[index]
+
+# printArray
+# Takes an openArray of integers. Does not return.
+# Prints the contents of an sequence of arbitrary length with commas between each element.
+proc printSequence(oa: openArray[int]): string =
+    result = ""
+    for i in 0..oa.len-1:
+        result.add(intToStr(oa[i]))
+        if i != oa.len-1:
+            result.add(", ")
 
 # main
 # Nim doesn't use a "main" but executes all of the unindented blocks,
@@ -51,7 +50,7 @@ block input:
         var inputString = readLine(stdin)
         if inputString == "":
             break
-        for i in 0..<inputString.len:
+        for i in 0..inputString.len-1:
             if not isDigit(inputString[i]):
                 echo "Only integer inputs are valid."
                 break input

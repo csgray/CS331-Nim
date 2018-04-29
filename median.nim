@@ -16,10 +16,14 @@ var
 
 # printArray
 # Takes an openArray of integers. Does not return.
-# Prints the contents of an sequence of arbitrary length.
-proc printSequence(oa: openArray[int]) =
+# Prints the contents of an sequence of arbitrary length with commas between each element.
+proc printSequence(oa: openArray[int]): string =
+    result = ""
     for i in 0..<oa.len:
-        echo oa[i]
+        result.add(intToStr(oa[i]))
+        if i != <oa.len:
+            result.add(", ")
+
 
 # median
 # Takes an openArray of intgers.
@@ -55,4 +59,4 @@ block input:
         inputSequence.add(inputInteger)
 
 outputMedian = median(inputSequence)
-echo "The median is: " & intToStr(outputMedian)
+echo "The median of " & printSequence(inputSequence) & " is: " & intToStr(outputMedian)

@@ -6,11 +6,13 @@
 # Demonstrates the Nim programming language by implementing Assignment 5 Exercise C
 
 # Imports
-import strutils
+import strutils # for intToStr, isDigit, and parseInt
+import algorithm # for sort
 
 # Variables
 var
     inputSequence: seq[int] = @[]
+    outputMedian: int
 
 # printArray
 # Takes an openArray of integers. Does not return.
@@ -18,6 +20,14 @@ var
 proc printSequence(oa: openArray[int]) =
     for i in 0..<oa.len:
         echo oa[i]
+
+# median
+# Takes an openArray of intgers.
+# Returns the median.
+proc median(oa: var openArray[int]): int =
+    sort(oa, system.cmp[int])
+    var index = int(oa.len/2)
+    result = oa[index]
 
 # main
 # Nim doesn't use a "main" but executes all of the unindented blocks,
@@ -43,5 +53,6 @@ block input:
                 break input
         var inputInteger = parseInt(inputString)
         inputSequence.add(inputInteger)
-echo "You inputed: "
-printSequence(inputSequence)
+
+outputMedian = median(inputSequence)
+echo "The median is: " & intToStr(outputMedian)
